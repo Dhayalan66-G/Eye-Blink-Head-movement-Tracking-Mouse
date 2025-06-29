@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrolling with Larger Scrollbars</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .scroll-container {
+            display: grid;
+            grid-template-columns: repeat(10, 300px); /* Small horizontal scroll */
+            grid-auto-rows: 300px; /* Small vertical scroll */
+            grid-gap: 10px;
+            position: relative;
+            padding: 10px;
+            overflow-x: auto; /* Allows horizontal scrolling */
+            overflow-y: auto; /* Allows vertical scrolling */
+            width: 100%;
+            height: calc(100vh - 60px); /* Full viewport height minus title */
+        }
+
+        .scroll-item {
+            width: 280px;
+            height: 280px;
+            background-color: #5a9bd3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .scroll-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* Larger Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px; /* Increased width for vertical scrollbar */
+            height: 12px; /* Increased height for horizontal scrollbar */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scrolling Testing</h1> <!-- Added title here -->
+    <div id="scroll-container" class="scroll-container"></div>
+
+    <script>
+        const container = document.getElementById("scroll-container");
+
+        // List of website logos and URLs
+        const logoData = [
+            { src: "http://pluspng.com/img-png/google-logo-png-open-2000.png", url: "https://www.google.com", name: "Google" },
+            { src: "https://logodownload.org/wp-content/uploads/2014/09/facebook-logo-1-2.png", url: "https://www.facebook.com", name: "Facebook" },
+            { src: "https://logohistory.net/wp-content/uploads/2023/02/Twitter-Log%D0%BE.png", url: "https://www.twitter.com", name: "X" },
+            { src: "https://tse1.mm.bing.net/th?id=OIP.a1QiySREjxPnekNsBlrnOQHaHa&pid=Api&P=0&h=180", url: "https://www.instagram.com", name: "Instagram" },
+            { src: "https://tse4.mm.bing.net/th?id=OIP.iczDKdo6uOsJRvrZ93AakwHaHa&pid=Api&P=0&h=180", url: "https://www.youtube.com", name: "YouTube" },
+            { src: "https://tse2.mm.bing.net/th?id=OIP.SSMDToBMJh0TQG2PtQNlZwHaHa&pid=Api&P=0&h=180", url: "https://www.linkedin.com", name: "LinkedIn" },
+            { src: "https://tse1.mm.bing.net/th?id=OIP.beK5e8wk6FF8gNgAZhqSrAHaGj&pid=Api&P=0&h=180", url: "https://www.snapchat.com", name: "Snapchat" },
+            { src: "https://tse4.mm.bing.net/th?id=OIP.D_SmWDzxsjVoxxL8nFBGJQHaHd&pid=Api&P=0&h=180", url: "https://www.whatsapp.com", name: "WhatsApp" },
+            { src: "https://tse3.mm.bing.net/th?id=OIP.yFujq2tN2l8nru3we4q98QHaHa&pid=Api&P=0&h=180", url: "https://www.spotify.com", name: "Spotify" },
+            { src: "https://tse4.mm.bing.net/th?id=OIP.CZJDBH0i5h6TcZJvUMQgmQHaJF&pid=Api&P=0&h=180", url: "https://www.apple.com", name: "Apple" }
+        ];
+
+        // Function to create a scroll item with a logo that links to the website
+        function createScrollItem(index) {
+            const item = document.createElement("div");
+            item.className = "scroll-item";
+            
+            const link = document.createElement("a");
+            link.href = logoData[index % logoData.length].url;
+            link.target = "_blank";
+
+            const logo = document.createElement("img");
+            logo.src = logoData[index % logoData.length].src;
+            logo.alt = logoData[index % logoData.length].name;
+            link.appendChild(logo);
+
+            item.appendChild(link);
+            return item;
+        }
+
+        // Load initial content
+        let itemCount = 0;
+        function loadInitialContent() {
+            for (let i = 0; i < 50; i++) {
+                container.appendChild(createScrollItem(itemCount++));
+            }
+        }
+
+        // Load more content on scroll
+        function addContentHorizontally() {
+            for (let i = 0; i < 5; i++) {
+                container.appendChild(createScrollItem(itemCount++));
+            }
+        }
+
+        function addContentVertically() {
+            for (let i = 0; i < 5; i++) {
+                container.appendChild(createScrollItem(itemCount++));
+            }
+        }
+
+        window.addEventListener("scroll", () => {
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            const { scrollLeft, scrollWidth, clientWidth } = document.body;
+
+            if (scrollLeft + clientWidth >= scrollWidth - 50) {
+                addContentHorizontally();
+            }
+
+            if (scrollTop + clientHeight >= scrollHeight - 50) {
+                addContentVertically();
+            }
+        });
+
+        loadInitialContent();
+    </script>
+</body>
+</html>

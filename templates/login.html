@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Tracking Mouse</title>
+    <link rel="icon" href="icon-32x32.png" type="image/png" sizes="32x32">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            background: url('1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .headline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6ca0dc; /* Mild blue color */
+            font-size: 2em;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .headline img {
+            width: 100px; /* Smaller size for the logo */
+            margin-right: 15px; /* Space between the image and app name */
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(239, 237, 237, 0.8); /* Light background */
+            border-radius: 15px;
+            padding: 30px;
+            color: #333; /* Dark text for contrast */
+            text-align: center;
+            margin-top: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #6ca0dc; /* Mild blue */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #6ca0dc; /* Blue border */
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.1); /* Light transparent background */
+            color: #333; /* Dark text inside the input */
+            font-size: 16px;
+        }
+        button {
+            width: 80%;
+            padding: 10px;
+            background-color: #6ca0dc; /* Blue button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3b7a99; /* Darker blue on hover */
+        }
+        .message {
+            color: #e74c3c; /* Red message color */
+            font-size: 0.9em;
+        }
+        .link {
+            color: #6ca0dc; /* Blue link */
+            font-size: 1em;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+        .developer-names {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.9em;
+            color: #200fe0; /* White text */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Headline Section with Image and App Name -->
+    <div class="headline">
+        <img src="app-logo.png" alt="App Logo"> <!-- Adjusted logo size -->
+        <span>Face and Eye Control Mouse</span>
+    </div>
+
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button type="submit">Login</button>
+            <p id="loginMessage" class="message"></p>
+        </form>
+        <p>Don't have an account? <a href="register.html" class="link">Register here</a></p>
+    </div>
+
+    <div class="developer-names" id="developerNames">
+        <!-- Developer names will be displayed here -->
+    </div>
+
+    <script>
+        const developerNames = ['Dheenadhayalan', 'Durai', 'Gokulraj'];
+        let currentIndex = 0;
+        const developerNamesDiv = document.getElementById('developerNames');
+
+        function showDeveloperName() {
+            if (currentIndex < developerNames.length) {
+                developerNamesDiv.textContent += developerNames[currentIndex] + (currentIndex < developerNames.length - 1 ? ', ' : '');
+                currentIndex++;
+                setTimeout(showDeveloperName, 1000); // Delay of 1 second
+            }
+        }
+
+        // Start showing developer names
+        showDeveloperName();
+
+        const loginForm = document.getElementById("loginForm");
+        const loginMessage = document.getElementById("loginMessage");
+
+        function getUsers() {
+            const users = localStorage.getItem("users");
+            return users ? JSON.parse(users) : [];
+        }
+
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            const users = getUsers();
+            if (users.some(user => user.username === username && user.password === password)) {
+                loginMessage.textContent = "Login successful!";
+                setTimeout(() => {
+                    alert("Welcome, " + username + "!");
+                    // Redirect to the index.html page after login success
+                    window.location.href = "index.html"; // This will open the index page
+                }, 500);
+            } else {
+                loginMessage.textContent = "Invalid username or password!";
+            }
+            loginForm.reset();
+        });
+    </script>
+
+</body>
+</html>
