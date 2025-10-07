@@ -3,11 +3,12 @@
 This project enables users to control their mouse using **eye blinks** and **head movement**. It uses computer vision and AI libraries such as MediaPipe, OpenCV, and dlib to track facial landmarks and estimate gaze direction and head orientation. The project also includes a Flask web interface.
 
 ---
-<div style="display: flex; flex-direction: row; gap: 10px;">
+<div style="display: flex; flex-direction: row; gap: 10px; flex-wrap: wrap;">
 
-  <img src="Presentation1.jpg" alt="" width="150"/>
+  <img src="Presentation1.jpg" alt="Presentation" style="width:200px; height:auto; border:1px solid #ccc; border-radius:5px;"/>
 
 </div>
+
 
 
 ## 🆕 Rebuilt Version (2024 - 25)
