@@ -6,7 +6,7 @@ This project enables users to control their mouse using **eye blinks** and **hea
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
 
   <img src="Presentation1.jpg" alt="Presentation" 
-       style="width:400px; max-width:90%; height:auto; border:1px solid #ccc; border-radius:5px;"/>
+       style="width:800px; max-width:90%; height:auto; border:1px solid #ccc; border-radius:5px;"/>
 
 </div>
 
